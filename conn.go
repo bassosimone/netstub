@@ -15,14 +15,14 @@ import (
 
 // FuncConn allows to mock any [net.Conn].
 type FuncConn struct {
-	ReadFunc        func([]byte) (int, error)
-	WriteFunc       func([]byte) (int, error)
-	CloseFunc       func() error
-	LocalAddrFunc   func() net.Addr
-	RemoteAddrFunc  func() net.Addr
-	SetDeadlineFunc func(time.Time) error
-	SetReadDeadFunc func(time.Time) error
-	SetWriteDeaFunc func(time.Time) error
+	ReadFunc             func([]byte) (int, error)
+	WriteFunc            func([]byte) (int, error)
+	CloseFunc            func() error
+	LocalAddrFunc        func() net.Addr
+	RemoteAddrFunc       func() net.Addr
+	SetDeadlineFunc      func(time.Time) error
+	SetReadDeadlineFunc  func(time.Time) error
+	SetWriteDeadlineFunc func(time.Time) error
 }
 
 var _ net.Conn = &FuncConn{}
@@ -65,12 +65,12 @@ func (fc *FuncConn) SetDeadline(t time.Time) error {
 
 // SetReadDeadline implements [net.Conn].
 func (fc *FuncConn) SetReadDeadline(t time.Time) error {
-	runtimex.Assert(fc.SetReadDeadFunc != nil)
-	return fc.SetReadDeadFunc(t)
+	runtimex.Assert(fc.SetReadDeadlineFunc != nil)
+	return fc.SetReadDeadlineFunc(t)
 }
 
 // SetWriteDeadline implements [net.Conn].
 func (fc *FuncConn) SetWriteDeadline(t time.Time) error {
-	runtimex.Assert(fc.SetWriteDeaFunc != nil)
-	return fc.SetWriteDeaFunc(t)
+	runtimex.Assert(fc.SetWriteDeadlineFunc != nil)
+	return fc.SetWriteDeadlineFunc(t)
 }
